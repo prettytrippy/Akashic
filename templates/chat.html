@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+    <style>
+        body {
+            background-color: #333;
+            color: #ddd;
+            font-family: 'Helvetica', Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #444;
+            padding: 20px;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            margin-right: 20px;
+        }
+
+        .container {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        h1, h2 {
+            color: #ccc;
+            text-align: center;
+        }
+
+        .dialogue-box {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column; /* Updated to column layout */
+            gap: 5px; /* Reduced spacing between checkboxes */
+            align-items: flex-start; /* Align items to the start of the container */
+        }
+
+        label {
+            margin-bottom: 0; /* Adjusted margin for labels */
+        }
+
+        .confirm-btn {
+            align-self: flex-start; /* Align the button to the start of the container */
+            margin-top: 5px; /* Added margin to the top of the button */
+        }
+
+        input[type="text"] {
+            width: calc(100% - 10px); /* Adjusted width to consider padding */
+            padding: 5px;
+        }
+
+        input[type="submit"], button {
+            padding: 5px 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Collections</h2>
+        <!-- Add checkboxes for each collection name -->
+        <form id="collectionsForm">
+            {% for collection_name in collection_names %}
+                <label>
+                    <input type="checkbox" name="collections" value="{{ collection_name }}" checked> {{ collection_name }}
+                </label>
+            {% endfor %}
+            <button class="confirm-btn" type="button" onclick="confirmCollections()">Confirm Collections</button>
+        </form>
+    </div>
+    <div class="container">
+        <h1>Chat</h1>
+        <div class="dialogue-box">
+            <!-- Iterate over messages and display each message in Markdown format -->
+            {% for agent, msg in messages %}
+                <p><strong>{{ agent }}</strong> {{ msg|markdown }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+        <form method="POST">
+            <input type="text" name="user_input" value="{{ user_input }}" placeholder="Type a message...">
+            <input type="submit" value="Send">
+        </form>
+    </div>
+    <script>
+        // Get the dialogue box element
+        var dialogueBox = document.querySelector('.dialogue-box');
+
+        // Function to scroll the dialogue box to the bottom
+        function scrollToBottom() {
+            dialogueBox.scrollTop = dialogueBox.scrollHeight;
+        }
+
+        // Scroll to the bottom when the page loads
+        window.onload = scrollToBottom;
+
+        // Scroll to the bottom when new user input is added
+        document.addEventListener('DOMContentLoaded', function() {
+            scrollToBottom();
+        });
+    </script>
+
+    <script>
+        // Add the JavaScript functions for confirmCollections and sendMessage
+        function confirmCollections() {
+            var form = document.getElementById("collectionsForm");
+            var checkboxes = form.querySelectorAll('input[name="collections"]:checked');
+            var selectedCollections = Array.from(checkboxes).map(function (checkbox) {
+                return checkbox.value;
+            });
+
+            // Send the selected collections to the server using form data
+            var formData = new FormData();
+            for (var i = 0; i < selectedCollections.length; i++) {
+                formData.append('collections', selectedCollections[i]);
+            }
+
+            fetch("/update_collections", {
+                method: "POST",
+                body: formData,
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Update the page or perform other actions based on the server response
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function sendMessage() {
+            // Implement the logic to send a message
+        }
+    </script>
+</body>
+</html>
