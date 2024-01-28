@@ -9,13 +9,16 @@ Always be as helpful and honest as you can.
 Always reply in markdown format."""
 
 # change this to your absolute path to llama.cpp
-path_to_llama_cpp = "/Users/path/to/llama.cpp/models"
+path_to_llama_cpp = "/Users/trippdow/TrippUtilities/llama.cpp/models"
 
 class AkashicChatbot():
     def __init__(self, model_path, system_prompt=system_prompt, context_length=context_length, format="llama", stop="[\INST]"):
         self.model = Llama(
             model_path=f"{path_to_llama_cpp}/{model_path}",
-            n_gpu_layers=-1, seed=random.randint(1000, 9999), n_ctx=context_length, chat_format=format
+            verbose=False,
+            n_gpu_layers=-1, 
+            seed=random.randint(1000, 9999), 
+            n_ctx=context_length, chat_format=format
         )
 
         self.system_prompt = system_prompt
