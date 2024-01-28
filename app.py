@@ -75,7 +75,8 @@ def chat():
         query = request.form.get('user_input')
         if query:
             # get any useful context from the document store, then prompt the chatbot
-            context = ""#archivist.rank_docs(current_collections, chatter.get_text_chat(3)+" "+query, 3, .75)
+            hyde_document = chatter.chat_text(query, context="", n=1, record=False)
+            context = archivist.rank_docs(current_collections, hyde_document, 3, .75)
             stream = chatter.chat_stream(query, context=context, n=1)
         
         for i in stream:
