@@ -1,0 +1,1 @@
+Consider a language-game for which this account is really valid. The language serves to represent combinations of coloured squares on a  surface. The squares form a chessboard-like complex. There are  red, green, white and black squares. The words of the language are 

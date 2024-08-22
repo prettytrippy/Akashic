@@ -1,0 +1,1 @@
+kind: “The formula y = x2 determines the number y for a given value of x.” The question “Is the formula written down there one that deter- mines y?” will then mean the same as “Is what is there a formula of

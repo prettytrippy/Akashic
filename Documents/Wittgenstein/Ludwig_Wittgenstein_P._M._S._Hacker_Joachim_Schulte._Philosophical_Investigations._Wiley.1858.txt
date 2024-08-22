@@ -1,0 +1,1 @@
+143. Betrachten wir nun diese Art von Sprachspiel: B soll auf den Befehl des A Reihen von Zeichen niederschreiben nach einem bestimmten Bildungsgesetz.

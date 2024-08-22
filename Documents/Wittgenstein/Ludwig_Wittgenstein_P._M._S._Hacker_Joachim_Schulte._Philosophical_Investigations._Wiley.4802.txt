@@ -1,0 +1,1 @@
+621. But there is one thing we shouldn’t overlook: when ‘I raise my arm’, my arm rises. And now a problem emerges: what is left over if I subtract the fact that my arm rises from the fact that I raise my arm?

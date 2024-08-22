@@ -1,0 +1,1 @@
+life; but I don’t understand one part of it: I cannot see solid objects there, but only patches of colour on the canvas. a Or I see all the objects, but I am not familiar with them (they look like implements, but I don’t

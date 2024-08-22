@@ -1,0 +1,1 @@
+214. If an intuition is necessary for continuing the series 1 2 3 4 . . . , then also for continuing the series 2 2 2 2 . . . 215. But isn’t at least the same the same?

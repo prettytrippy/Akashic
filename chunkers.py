@@ -4,7 +4,7 @@
 import re
 from text_utilities import filename_split
 import transformers
-from chat import context_length
+# from chat import context_length
 
 tokenizer = transformers.AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1")
 
@@ -14,7 +14,7 @@ def default_length_function(txt):
 
 default_pattern = r'\n|\t|\r'
 
-default_max_length = context_length // 4
+default_max_length = 128
 
 def chunk_doc_frame(txt, length_function, max_length, pattern):
     txts = re.split(pattern, txt)

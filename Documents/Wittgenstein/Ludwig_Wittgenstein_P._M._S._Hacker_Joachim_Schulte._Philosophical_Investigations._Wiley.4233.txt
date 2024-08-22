@@ -1,0 +1,1 @@
+513. Betrachte diese Ausdrucksform: “Mein Buch hat soviel Seiten, wie eine Lösung der Gleichung x3 + 2x − 3 = 0 beträgt.” Oder: “Die Zahl

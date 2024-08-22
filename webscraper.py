@@ -1,7 +1,5 @@
 import requests
 from bs4 import BeautifulSoup
-import time
-from text_utilities import safe_string
 from selenium import webdriver
 from selenium.webdriver.firefox.options import Options
 
@@ -39,7 +37,7 @@ def webscrape(query):
         try:
             response = requests.get(link)
             soup = BeautifulSoup(response.text, 'html.parser')
-            webtexts.append(safe_string(soup.get_text(" ")))
+            webtexts.append(soup.get_text(" "))
         except:
             pass
 

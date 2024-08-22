@@ -1,0 +1,1 @@
+86. Ein Sprachspiel wie (2), werde mit Hilfe einer Tabelle gespielt. Die Zeichen, die A dem B gibt, seien nun Schriftzeichen. B hat eine Tabelle;

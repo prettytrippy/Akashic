@@ -1,0 +1,1 @@
+Wörter der Sprache seien (entsprechend): “R”, “G”, “W”, “S”, und ein Satz ist eine Reihe dieser Wörter. Sie beschreiben eine Zusammen- stellung von Quadraten in der Reihenfolge

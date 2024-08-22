@@ -1,0 +1,1 @@
+ist nicht eine Eigenschaft des Objekts, es ist eine interne Relation zwi- schen ihm und andern Objekten. 248. Sehe ich wirklich jedesmal etwas anderes, oder deute ich nur, was

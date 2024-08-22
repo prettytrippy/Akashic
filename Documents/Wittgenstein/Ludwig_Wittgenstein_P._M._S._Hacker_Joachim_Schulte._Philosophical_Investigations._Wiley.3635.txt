@@ -1,0 +1,1 @@
+sage: “Nun, seine Seele hat Schmerzen; aber was hat das mit seinem Leib zu tun!”, oder “das muß sich schließlich am Leib nicht zeigen!”

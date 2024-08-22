@@ -1,0 +1,1 @@
+say: “The machine read only after such-and-such had happened to it a after such-and-such parts had been connected by wires; the ﬁrst word that it read was . . .”

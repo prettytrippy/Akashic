@@ -1,0 +1,1 @@
+21. Imagine a language-game in which A asks, and B reports, the num- ber of slabs or blocks in a pile, or the colours and shapes of the build- ing stones that are stacked in such-and-such a place. a Such a report

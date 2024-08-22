@@ -1,0 +1,1 @@
+(So wie wir jemand eine Zahl mitteilen können, indem wir sagen, sie sei die fünfundzwanzigste der Reihe 1, 4, 9, 16, . . .)

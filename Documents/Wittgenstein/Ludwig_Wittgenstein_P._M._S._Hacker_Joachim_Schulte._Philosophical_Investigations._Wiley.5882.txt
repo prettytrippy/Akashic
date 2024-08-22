@@ -1,0 +1,1 @@
+214. (The temptation to say “I see it like this”, pointing to the same thing for “it” and “this”.) Always get rid of the idea of the private object in this way: assume that it constantly changes, but that you don’t notice

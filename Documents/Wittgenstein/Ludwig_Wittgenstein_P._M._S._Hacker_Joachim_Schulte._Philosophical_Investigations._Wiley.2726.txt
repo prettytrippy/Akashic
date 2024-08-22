@@ -1,0 +1,1 @@
+226. Suppose someone continues the sequence 1, 3, 5, 7, . . . in expand- ing the series 2x − 1. And now he asks himself, “But am I always doing the same thing, or something different every time?”

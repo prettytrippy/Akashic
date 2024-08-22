@@ -1,0 +1,1 @@
+341. A dispute may arise over the correct result of a calculation (say, of a rather long addition). But such disputes are rare and of short dura- tion. They can be decided, as we say, ‘with certainty’.

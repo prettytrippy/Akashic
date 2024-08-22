@@ -1,0 +1,1 @@
+173. Certain drawings are always seen as ﬂat ﬁgures, and others some- times, or always, three-dimensionally. Here one would now like to say: the visual impression of drawings

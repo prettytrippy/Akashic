@@ -1,0 +1,1 @@
+446. It would be odd to say: “A process looks different when it  happens from when it doesn’t happen.” Or: “A red patch looks dif- ferent when it is there from when it isn’t there a but language abstracts

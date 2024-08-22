@@ -1,0 +1,1 @@
+den, die Formel y = x2 so zu verwenden, daß Alle, wenn sie die gleiche Zahl für x einsetzen, immer die gleiche Zahl für y herausrechnen. Oder

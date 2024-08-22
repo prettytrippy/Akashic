@@ -1,0 +1,1 @@
+Frege compares a concept to a region, and says that a region with- out clear boundaries can’t be called a region at all. This presumably means that we can’t do anything with it. a But is it senseless to say

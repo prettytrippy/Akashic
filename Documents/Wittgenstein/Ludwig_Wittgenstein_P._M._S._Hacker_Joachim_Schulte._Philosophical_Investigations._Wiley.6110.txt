@@ -1,0 +1,1 @@
+274. Gegeben die beiden Begriffe ‘fett’ und ‘mager’, würdest du eher geneigt sein, zu sagen, Mittwoch sei fett und Dienstag mager, oder das

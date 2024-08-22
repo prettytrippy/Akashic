@@ -1,0 +1,1 @@
+341. Es kann ein Streit darüber entstehen, welches das richtige Resultat einer Rechnung ist (z. B. einer längeren Addition). Aber so ein Streit

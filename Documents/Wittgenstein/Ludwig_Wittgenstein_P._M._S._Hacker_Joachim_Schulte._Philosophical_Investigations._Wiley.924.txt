@@ -1,0 +1,1 @@
+(correspondingly) “R”, “G”, “W”, “B”, and a sentence is a sequence of these words. Such sequences describe an arrangement of squares in the order And so, for instance, the sentence “RRBGGGRWW” describes an arrangement of this sort:
