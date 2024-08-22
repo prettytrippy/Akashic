@@ -64,12 +64,13 @@ class AkashicChatbot():
                 self.messages[-1]['content'] = response
                 yield chunk
 
-    def chat_text(self, user, system="", context="", n=1):
+    def chat_text(self, user, system="", context="", n=1, record=True):
         if context:
             user = f"{user}\n{context}"
         
         system = system if system else self.system_prompt
-        self.messages.append({"role": "user", "content": user})
+        if record:
+            self.messages.append({"role": "user", "content": user})
 
         prompt = [{"role": "system", "content": system}]
         prompt.extend(self.messages[-n*2-1:])
@@ -78,13 +79,15 @@ class AkashicChatbot():
         )
 
         response = ""
-        self.messages.append({"role": "assistant", "content": response})
+        if record:
+            self.messages.append({"role": "assistant", "content": response})
         
         for i in answers:
             if 'content' in i['choices'][0]['delta'].keys():
                 chunk = i['choices'][0]['delta']['content']
                 response += chunk
-                self.messages[-1]['content'] = response
+                if record:
+                    self.messages[-1]['content'] = response
 
         return response
 
