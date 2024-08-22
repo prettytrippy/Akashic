@@ -9,7 +9,7 @@ context_length = 1024
 
 archivist = AkashicArchivist()
 archivist.load_retrievers()
-chatter = llama3_Q4_chatbot()
+chatter = llama3_Q4_chatbot(context_length=1024)
 
 current_collections = []
 
@@ -75,10 +75,11 @@ def chat():
         query = request.form.get('user_input')
         if query:
             # get any useful context from the document store, then prompt the chatbot
-            hyde_document = chatter.chat_text(query, context="", n=1)
+            # hyde_document = chatter.chat_text(query, context="", n=1)
+            hyde_document = query
 
             context = archivist.rank_docs(current_collections, hyde_document, 3, .5)
-            stream = chatter.chat_stream(query, context=context, n=1)
+            stream = chatter.chat_stream(query, context=context)
         
         for i in stream:
             print(i, end="", flush=True)

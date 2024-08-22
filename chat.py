@@ -1,5 +1,6 @@
 from llama_cpp import Llama
 import random
+import os
 from chunkers import default_length_function
 
 default_system_prompt = """You are a large language model,
@@ -11,7 +12,8 @@ Always reply in markdown format."""
 context_length = 4096
 
 # change this to your absolute path to llama.cpp
-path_to_llama_cpp = "/Users/trippdow/TrippUtilities/llama.cpp/models/GGUF"
+path_to_llama_cpp = os.environ['LLAMA_CPP_PATH'] 
+
 
 class AkashicChatbot():
     def __init__(self, model_path, system_prompt=default_system_prompt, context_length=context_length, format="llama_2"):
@@ -86,6 +88,7 @@ class AkashicChatbot():
             if 'content' in i['choices'][0]['delta'].keys():
                 chunk = i['choices'][0]['delta']['content']
                 response += chunk
+                print(chunk, end="", flush=True)
                 if record:
                     self.messages[-1]['content'] = response
 
