@@ -1,7 +1,10 @@
 from llama_cpp import Llama
 import random
 import os
+from dotenv import load_dotenv
 from chunkers import default_length_function
+
+load_dotenv()
 
 default_system_prompt = """You are a large language model,
 who answers questions for humans.
@@ -44,7 +47,7 @@ class AkashicChatbot():
 
     def chat_stream(self, user, system="", context=""):
         if context:
-            user = f"{user}\n{context}"
+            user = f"{user}\nHere's some content that might help:\n{context}"
         
         system = system if system else self.system_prompt
         self.messages.append({"role": "user", "content": user})
