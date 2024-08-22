@@ -1,1 +1,0 @@
-no longer go by hunches in deciding the thickness of the walls, but make such-and-such calculations instead. Or, ever since each calculation done by one engineer got checked by another. 470. So sometimes one thinks because it has been found to pay.

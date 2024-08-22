@@ -1,1 +1,0 @@
-Schachﬁgur ein Zug im Schachspiel. Man kann sagen: Mit dem Benennen eines Dings ist noch nichts getan. Es hat auch keinen Namen,

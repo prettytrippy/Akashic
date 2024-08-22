@@ -1,1 +1,0 @@
-the series of natural numbers. a Let’s suppose we have done exercises, and tested his understanding up to 1000. Then we get the pupil to continue one series (say “+2”) beyond 1000

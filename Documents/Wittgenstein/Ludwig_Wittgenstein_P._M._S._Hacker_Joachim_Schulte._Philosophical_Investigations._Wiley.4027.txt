@@ -1,1 +1,0 @@
-it says: if an order runs “Do such-and-such”, then doing such-and-such is called “executing the order”. 459. We say “The order orders this a”, and do it; but also: “The order

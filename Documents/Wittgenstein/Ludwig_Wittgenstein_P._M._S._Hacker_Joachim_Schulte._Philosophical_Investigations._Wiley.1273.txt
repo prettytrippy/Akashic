@@ -1,1 +1,0 @@
-tische Zeichnung eines Würfels als ebene Figur sieht, bestehend aus einem Quadrat und zwei Rhomben, der wird den Befehl “Bringe mir so etwas!”

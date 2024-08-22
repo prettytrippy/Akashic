@@ -1,1 +1,0 @@
-321. There is a game called ‘thought guessing’. One variant of it would be this: I tell A something in a language that B does not understand. B is supposed to guess the meaning of what I say. —– Another variant: I

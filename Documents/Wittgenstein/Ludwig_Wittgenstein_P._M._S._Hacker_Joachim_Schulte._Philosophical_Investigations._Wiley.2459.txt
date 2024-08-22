@@ -1,1 +1,0 @@
-priate method of use) “formulae which determine a number y for a  given value of x”, and formulae of another kind, ones which “do not determine the number y for a given value of x”. (y = x2 would be 

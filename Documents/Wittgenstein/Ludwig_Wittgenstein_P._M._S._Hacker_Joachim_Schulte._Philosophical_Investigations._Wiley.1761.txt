@@ -1,1 +1,0 @@
-I could just as well have said “Such-and-such is true”. (Or again, “Such- and-such is false”.) But ‘p’ is true = p ‘p’ is false = not-p.

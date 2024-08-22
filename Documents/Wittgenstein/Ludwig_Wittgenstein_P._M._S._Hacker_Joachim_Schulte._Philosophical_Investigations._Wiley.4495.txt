@@ -1,1 +1,0 @@
-563. Let’s say that the meaning of a piece is its role in the game. a Now let it be decided by lot, before a game of chess begins, which of the players gets white. For this, one player holds a king in each closed

@@ -1,1 +1,0 @@
-510. Try to do the following: say “It’s cold here”, and mean “It’s warm here”. Can you do it? a And what are you doing as you do it? And is there only one way of doing it?

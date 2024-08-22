@@ -1,1 +1,0 @@
-“The number of my friends is n, and n2 + 2n + 2 = 0.” Does this sen- tence make sense? This cannot be seen immediately. From this exam- ple |141| one can see how it can come about that something looks like

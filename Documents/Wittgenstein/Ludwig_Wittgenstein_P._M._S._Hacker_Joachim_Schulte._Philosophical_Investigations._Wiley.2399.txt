@@ -1,1 +1,0 @@
-0, n, 2n, 3n, etc. anschreibt; auf den Befehl “+1” also die Grundzahlenreihe. a Wir hät-

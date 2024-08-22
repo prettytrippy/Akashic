@@ -1,1 +1,0 @@
-627. Consider the following description of a voluntary action: “I  form the decision to pull the bell at 5 o’clock; and when it strikes 5, my arm makes this movement.” a Is that the correct description, and

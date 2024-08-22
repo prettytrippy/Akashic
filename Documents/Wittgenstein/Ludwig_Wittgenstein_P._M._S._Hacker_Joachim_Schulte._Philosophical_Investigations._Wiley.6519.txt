@@ -1,1 +1,0 @@
-§22(d) Frege’s assertion sign is the ‘turnstile’, |a, which is composed of the sign of assertion or judgement-stroke ‘|’, and the content-stroke or horizontal ‘a’, which is a function sign denoting a function from

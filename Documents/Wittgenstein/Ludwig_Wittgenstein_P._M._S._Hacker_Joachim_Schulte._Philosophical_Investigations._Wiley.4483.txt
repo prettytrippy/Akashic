@@ -1,1 +1,0 @@
-563. Sagen wir: die Bedeutung eines Steines (einer Figur) ist ihre Rolle im Spiel. a Nun werde vor Beginn jeder Schachpartie durch das Los

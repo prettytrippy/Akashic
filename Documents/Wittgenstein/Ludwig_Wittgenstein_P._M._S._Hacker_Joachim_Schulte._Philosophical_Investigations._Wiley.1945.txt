@@ -1,1 +1,0 @@
-sich “Was ist die Reihe der Differenzen?”. Er ﬁndet: 4, 6, 8, 10 und sagt: Jetzt kann ich weiter.

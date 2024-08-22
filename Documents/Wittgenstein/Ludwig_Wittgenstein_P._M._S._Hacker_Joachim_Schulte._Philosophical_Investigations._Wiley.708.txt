@@ -1,1 +1,0 @@
-begin by pointing to a chess piece and saying “This is the king; it can move in this-and-this way”, and so on. a In this case we shall say: the

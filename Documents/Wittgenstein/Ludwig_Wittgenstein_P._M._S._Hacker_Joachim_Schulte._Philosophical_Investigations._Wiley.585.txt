@@ -1,1 +1,0 @@
-We might very well also write every assertion in the form of a |11| question followed by an afﬁrmative expression; for instance, “Is  it raining? Yes!” Would this show that every assertion contained a  question?

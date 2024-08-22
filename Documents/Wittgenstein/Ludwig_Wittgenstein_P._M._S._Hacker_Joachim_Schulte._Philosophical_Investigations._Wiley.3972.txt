@@ -1,1 +1,0 @@
-with the sentences “Here is a red patch” and “Here there isn’t a red patch”. The word “red” occurs in both; so this word can’t indicate the presence of something red.

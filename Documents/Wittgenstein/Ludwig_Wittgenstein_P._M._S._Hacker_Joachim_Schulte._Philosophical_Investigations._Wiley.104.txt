@@ -1,1 +1,0 @@
-one full stop in such cases. There are a number of sentences where a closing full stop or question mark is missing. In such cases we have supplied the missing sign. In the case of complete quoted sentences we print the last quotation mark after the closing punctuation mark. This

@@ -1,1 +1,0 @@
-2, 3, 4, 5, . . . so: 1, 0, 3, 2, 5, 4, . . . Hier werden wir beinahe versucht sein zu sagen, er habe uns falsch verstanden.

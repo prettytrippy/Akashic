@@ -1,1 +1,0 @@
-posite? a You’re probably thinking of its being composed of 32 white and 32 black squares. But couldn’t we also say, for instance, that it was composed of the colours black and white and the schema of squares?

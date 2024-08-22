@@ -1,1 +1,0 @@
-617. If we cross our ﬁngers in a special way, we are sometimes unable to move a particular ﬁnger when someone tells us to do so, if he only points to the ﬁnger a merely shows it to the eye. However, if he touches

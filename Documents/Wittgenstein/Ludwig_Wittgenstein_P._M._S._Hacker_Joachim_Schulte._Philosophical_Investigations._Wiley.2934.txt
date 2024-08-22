@@ -1,1 +1,0 @@
-bered the time of departure of a train correctly, and to check it I call to mind how a page of the timetable looked. Isn’t this the same sort of case?” No; for this procedure must now actually call forth |94| the cor-

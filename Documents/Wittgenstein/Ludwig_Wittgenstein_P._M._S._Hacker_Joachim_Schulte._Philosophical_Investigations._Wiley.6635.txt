@@ -1,1 +1,0 @@
-have replaced most of Anscombe’s uses of ‘proposition’ here by ‘sen- tence’, we have not done so in the cases of ‘general propositional form’, ‘propositional schema’, ‘propositional variable’ and ‘our concept of a

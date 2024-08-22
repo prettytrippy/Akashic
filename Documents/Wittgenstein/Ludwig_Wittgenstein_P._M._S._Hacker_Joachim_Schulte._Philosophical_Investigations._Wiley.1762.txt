@@ -1,1 +1,0 @@
-And to say that a proposition is whatever can be true or false amounts to saying: we call something a proposition if in our language we apply the calculus of truth functions to it. Now it looks as if the explanation a a proposition is whatever 

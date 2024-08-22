@@ -1,1 +1,0 @@
-Fläche darzustellen. Die Quadrate bilden einen schachbrettförmigen Komplex. Es gibt rote, grüne, weiße und schwarze Quadrate. Die

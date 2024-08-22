@@ -1,1 +1,0 @@
-Let’s think of a similar case in a game: in draughts a king is indi- cated by putting one piece on top of another. Now won’t one say that it’s inessential to the game for a king to consist of two pieces?

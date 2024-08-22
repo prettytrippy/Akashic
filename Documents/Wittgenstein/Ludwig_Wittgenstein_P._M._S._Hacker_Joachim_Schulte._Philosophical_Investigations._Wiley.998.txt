@@ -1,1 +1,0 @@
-eine Tabelle mit sich und sucht in ihr jedes Element des Komplexes auf und geht von ihm in der Tabelle zum Zeichen über (und es kann auch der, dem die Beschreibung gegeben wird, die Worte derselben durch eine

@@ -1,1 +1,0 @@
-226. Nimm an, Einer folgt der Reihe 1, 3, 5, 7, . . . indem er die Reihe
