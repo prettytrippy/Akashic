@@ -1,2 +1,4 @@
 Collections/**
 .env
+__pycache__/**
+akashic.egg-info/**
