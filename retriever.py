@@ -11,11 +11,16 @@ class AkashicRetriever():
         self.path = path
         self.max_tokens= max_tokens
         self.collections = dict()
-        # self.collections = self.init_collections()
+        self.init_collections()
+        print(self.collections)
 
     def init_collections(self):
-        # collection_names = names for subdirectories of self.path
-        pass
+        collection_names = [name for name in os.listdir(self.path) if os.path.isdir(os.path.join(self.path, name))]
+        for collection in collection_names:
+            full_collection_path = f"{self.path}/{collection}"
+            filenames = glob(f"{full_collection_path}/*.akashic.txt")
+            real_names = [self.get_original_filename(filename) for filename in filenames]
+            self.collections[collection] = list(set(real_names))
 
     def create_collection(self, collection):
         if collection in self.collections.keys():
@@ -38,8 +43,11 @@ class AkashicRetriever():
        
     def get_original_filename(self, path):
         path = path.replace(".akashic.txt", "")
+        path = path.replace(f"{self.path}", "")
         chunks = path.split(".")
-        return ".".join(chunks[:-1])
+        path = ".".join(chunks[:-1])
+        path = path.split("/")[-1]
+        return path
 
     def add_file(self, collection, filepath):
         record = AkashicRecord(filepath, f"{self.path}/{collection}", max_tokens=self.max_tokens)
@@ -53,7 +61,7 @@ class AkashicRetriever():
         filepaths = glob(f"{self.path}/{collection}/*.akashic.txt")
 
         for stored_filepath in filepaths:
-            if self.get_original_filename(stored_filepath) == filepath_to_match:
+            if f"{self.path}/{collection}/{self.get_original_filename(stored_filepath)}" == filepath_to_match:
                 files_to_remove.append(stored_filepath)
         
         for file in files_to_remove:

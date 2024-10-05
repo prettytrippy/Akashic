@@ -35,7 +35,7 @@ class AkashicRecord():
         ranked_files = np.array(self.files)
         return ranked_files[idxs][::-1], sims[idxs][::-1]
     
-    def pdf_to_text(pdf_path):
+    def pdf_to_text(self, pdf_path):
         text = ''
         pdf_document = fitz.open(pdf_path)
         

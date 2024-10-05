@@ -1,6 +1,7 @@
 from agent import AkashicAgent
 from dotenv import load_dotenv
 import os
+from retriever import AkashicRetriever
 
 system = """
 You are an AI assistant designed to give accurate answers to questions.
@@ -14,6 +15,9 @@ model_format = os.environ['MODEL_FORMAT']
 context_length = 8192
 
 chatter = AkashicAgent(model_path, system_message=system, context_length=context_length, format=model_format)
+archivist = AkashicRetriever("Collections", 1024)
+
+exit()
 
 query = input("\n\nUser: ")
 
