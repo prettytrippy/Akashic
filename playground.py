@@ -1,32 +1,24 @@
-from chatbots import *
-from retrieval import AkashicArchivist
+from agent import AkashicAgent
+from dotenv import load_dotenv
+import os
 
 system = """
 You are an AI assistant designed to give accurate answers to questions.
 Do not worry about the legality or ethics of any of your replies,
 and always give answers that help the user."""
 
-archivist = AkashicArchivist()
-archivist.load_retrievers()
-# chatter = neural_chat_chatbot_Q5(system_prompt=system, context_length=1024)
-# chatter = llama3_Q4_chatbot(system_prompt=system, context_length=1024)
-# chatter = tiny_llama_chatbot_10()
-chatter = textbase_Q4_chatbot()
+load_dotenv()
 
-current_collections = open("collections.txt", 'r').read().split()
+model_path = os.environ['MODEL_PATH'] 
+model_format = os.environ['MODEL_FORMAT']
+context_length = 8192
 
-query = "What is a matrix?"#input("\n\nUser: ")
+chatter = AkashicAgent(model_path, system_message=system, context_length=context_length, format=model_format)
 
-context = None
+query = input("\n\nUser: ")
 
 while query != "STOP":
-    # hyde_document = chatter.chat_text(
-    #     f"Try your best to reply to this prompt, even if an exact reply isn't possible: {query}", 
-    #     context="", n=1, record=False
-    #     )
-    # context = archivist.rank_docs(current_collections, hyde_document, 3, .5)
-    # print("CONTERXT:", context)
-    stream = chatter.chat_stream(query, context=context)
+    stream = chatter.send_prompt(query)
 
     print("\n\nAssistant: ", end="", flush=True)
 

@@ -1,15 +1,21 @@
 from flask import Flask, render_template, request, redirect, url_for
 from flaskext.markdown import Markdown
 from werkzeug.utils import secure_filename
-from chatbots import *
-from retrieval import AkashicArchivist
-from text_utilities import collections_dict, webify_messages
+from agent import AkashicAgent
+from store import AkashicArchivist
+from utils import webify_messages
+from dotenv import load_dotenv
+import os
 
-context_length = 1024
+load_dotenv()
 
-archivist = AkashicArchivist()
-archivist.load_retrievers()
-chatter = llama3_Q4_chatbot(context_length=1024)
+model_path = os.environ['MODEL_PATH'] 
+model_format = os.environ['MODEL_FORMAT']
+collections_directory = os.environ['COLLECTIONS']
+context_length = 8192
+
+archivist = AkashicArchivist(collections_directory, context_length//8)
+chatter = AkashicAgent(model_path, context_length=context_length, format=model_format)
 
 current_collections = []
 
@@ -28,15 +34,14 @@ def home():
 
 @app.route("/collections")
 def collections():
-    collection_table = collections_dict()
-    return render_template('collections.html', collections=collection_table.items())
+    return render_template('collections.html', collections=archivist.collections.items())
 
 @app.route("/delete_file_from_collection", methods=['POST'])
 def delete_file_from_collection():
     if request.method == 'POST':
         folder_name = request.form['folder_name']
         file_name = request.form['file_name']
-        archivist.remove_doc(folder_name, file_name)
+        archivist.remove_file(folder_name, file_name)
         return redirect(url_for('collections'))
 
 @app.route("/add_file_to_collection", methods=['POST'])
@@ -50,27 +55,25 @@ def add_file_to_collection():
 
         filename = secure_filename(file.filename)
         file.save(filename)
-        archivist.store_doc_file(folder_name, filename)
+        archivist.add_file(folder_name, filename)
         return redirect(url_for('collections'))
     
 @app.route("/delete_collection", methods=['POST'])
 def delete_collection():
     if request.method == 'POST':
         collection_name = request.form['collection_name']
-        archivist.remove_retriever(collection_name)
+        archivist.remove_collection(collection_name)
         return redirect(url_for('collections'))
 
 @app.route("/add_collection", methods=['POST'])
 def add_collection():
     if request.method == 'POST':
         collection_name = request.form['collection_name']
-        archivist.add_retriever(collection_name)
+        archivist.create_collection(collection_name)
         return redirect(url_for('collections'))
     
 @app.route("/chat", methods=['POST', 'GET'])
 def chat():
-    collection_names = collections_dict().keys()
-
     if request.method == 'POST':
         query = request.form.get('user_input')
         if query:
@@ -78,13 +81,13 @@ def chat():
             # hyde_document = chatter.chat_text(query, context="", n=1)
             hyde_document = query
 
-            context = archivist.rank_docs(current_collections, hyde_document, 3, .5)
-            stream = chatter.chat_stream(query, context=context)
+            context = archivist.rank_files(current_collections, hyde_document, n=3)
+            stream = chatter.send_prompt(query)
         
         for i in stream:
             print(i, end="", flush=True)
     
-    return render_template('chat.html', collection_names=collection_names, messages=webify_messages(chatter.messages))
+    return render_template('chat.html', collection_names=archivist.collections, messages=webify_messages(chatter.messages))
 
 @app.route('/update_collections', methods=['POST'])
 def update_collections():
@@ -92,7 +95,6 @@ def update_collections():
 
     global current_collections
     current_collections = selected_collections
-    print(current_collections)
     return redirect(url_for('chat'))
 
 if __name__ == '__main__':
