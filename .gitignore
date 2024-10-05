@@ -2,3 +2,4 @@ Collections/**
 .env
 __pycache__/**
 akashic.egg-info/**
+.DS_Store
