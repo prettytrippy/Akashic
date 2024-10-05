@@ -47,7 +47,6 @@ class AkashicAgent:
             messages_copy.pop(0)
             total_tokens = sum(count_tokens(msg['content']) for msg in messages_copy)
         
-        print("Total tokens:", total_tokens)
         return [{"role": 'system', "content": self.system_message}] + messages_copy
     
     def prepare_prompt(self, user_input):
