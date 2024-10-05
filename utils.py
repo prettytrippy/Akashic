@@ -1,14 +1,14 @@
-import transformers
+import tiktoken
 from sentence_transformers import SentenceTransformer
 import os
 
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 
 model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
-tokenizer = transformers.AutoTokenizer.from_pretrained("mistralai/Mistral-7B-v0.1")
+encoding = tiktoken.get_encoding("cl100k_base")
 
 def count_tokens(txt):
-    inputs = tokenizer(txt, return_tensors="pt").input_ids[0]
+    inputs = encoding.encode(txt)
     return len(inputs)
 
 def embed_text(txt):

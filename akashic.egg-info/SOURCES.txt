@@ -1,0 +1,6 @@
+README.md
+setup.py
+akashic.egg-info/PKG-INFO
+akashic.egg-info/SOURCES.txt
+akashic.egg-info/dependency_links.txt
+akashic.egg-info/top_level.txt
