@@ -56,6 +56,10 @@ def add_file_to_collection():
         filename = secure_filename(file.filename)
         file.save(filename)
         archivist.add_file(folder_name, filename)
+
+        if os.path.exists(filename):
+            os.remove(filename)
+            
         return redirect(url_for('collections'))
     
 @app.route("/delete_collection", methods=['POST'])
