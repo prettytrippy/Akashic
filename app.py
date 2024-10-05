@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from flaskext.markdown import Markdown
 from werkzeug.utils import secure_filename
 from agent import AkashicAgent
-from store import AkashicArchivist
+from retriever import AkashicRetriever
 from utils import webify_messages
 from dotenv import load_dotenv
 import os
@@ -14,7 +14,7 @@ model_format = os.environ['MODEL_FORMAT']
 collections_directory = os.environ['COLLECTIONS']
 context_length = 8192
 
-archivist = AkashicArchivist(collections_directory, context_length//8)
+archivist = AkashicRetriever(collections_directory, context_length//8)
 chatter = AkashicAgent(model_path, context_length=context_length, format=model_format)
 
 current_collections = []
