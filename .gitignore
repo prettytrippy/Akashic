@@ -1,5 +1,7 @@
-Collections/**
-.env
+akashic/Collections/**
+akashic/.env
+akashic/app/.env
 __pycache__/**
+akashic/__pycache__/**
 akashic.egg-info/**
-.DS_Store
+akashic/.DS_Store

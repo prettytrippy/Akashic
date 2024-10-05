@@ -1,0 +1,10 @@
+pymupdf
+tiktoken
+sentence-transformers
+llama-cpp-python
+flask-markdown
+
+numpy 
+matplotlib
+tqdm
+flask
