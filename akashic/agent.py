@@ -1,5 +1,3 @@
-from llama_cpp import Llama
-import random
 import os
 from dotenv import load_dotenv
 from akashic.utils import count_tokens
@@ -7,27 +5,21 @@ from akashic.utils import count_tokens
 load_dotenv()
 
 default_system_message = os.environ['SYSTEM_MESSAGE']
-default_context_length = 4096
-path_to_llama_cpp = os.environ['LLAMA_CPP_PATH'] 
-
-class AkashicModel():
-    def __init__(self, model_path, context_length=default_context_length, format="llama_2", seed=2023):
-        self.model = Llama(
-            model_path=f"{path_to_llama_cpp}/{model_path}",
-            verbose=False,
-            n_gpu_layers=-1, 
-            seed=seed, 
-            n_ctx=context_length, chat_format=format
-        )
-    def prompt(self, messages, stream):
-        return self.model.create_chat_completion(messages, stream=stream)
 
 class AkashicAgent:
-    def __init__(self, model, context_length=default_context_length, system_message=default_system_message):
+    def __init__(self, model, system_message=default_system_message):
         self.model = model
-        self.context_length = context_length
         self.messages = []
         self.system_message = system_message
+
+    def set_system_message(self, system):
+        self.system_message = system
+
+    def set_context_length(self, new_length):
+        self.model.context_length = new_length
+
+    def get_context_length(self):
+        return self.model.context_length
     
     def add_message(self, role, content, prepend=False):
         if prepend:
@@ -36,7 +28,7 @@ class AkashicAgent:
             self.messages.append({"role": role, "content": content})
     
     def truncate_messages(self):
-        token_limit = self.context_length - count_tokens(self.system_message)
+        token_limit = self.model.context_length - count_tokens(self.system_message)
 
         messages_copy = self.messages[:]
         
@@ -53,23 +45,15 @@ class AkashicAgent:
     
     def send_prompt(self, user_input, stream=True):
         prompt = self.prepare_prompt(user_input)
+        result = self.model.chat(prompt, stream=stream)
+        response = ""
 
         if stream:
-            answers = self.model.prompt(prompt, stream=stream)
-
-            response = ""
-            
-            for i in answers:
-                if 'content' in i['choices'][0]['delta'].keys():
-                    chunk = i['choices'][0]['delta']['content']
-                    response += chunk
-                    yield chunk
-
+            for i in result:
+                response += i
+                yield i
         else:
-            answers = self.model.prompt(prompt, stream=stream)
-
-            response = answers['choices'][0]['message']['content']
-
+            response = result
             yield response
 
         self.add_message('assistant', response)
