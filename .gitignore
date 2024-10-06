@@ -7,5 +7,5 @@ akashic/retrieval/__pycache__/**
 akashic/apps/__pycache__/**
 akashic.egg-info/**
 akashic/.DS_Store
-akashic/agents
+akashic/agents/**
 .DS_Store

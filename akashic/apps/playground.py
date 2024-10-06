@@ -1,4 +1,4 @@
-from akashic.agent import AkashicAgent
+from akashic.agents.chatbot import AkashicChatbot
 from akashic.model import AkashicModel
 from dotenv import load_dotenv
 import os
@@ -16,16 +16,6 @@ collections_directory = os.environ['COLLECTIONS']
 context_length = 8192
 
 model = AkashicModel(model_path, context_length=context_length, format=model_format)
-chatter = AkashicAgent(model, context_length=context_length)
+chatter = AkashicChatbot(model, context_length=context_length)
 
-query = "What is a tensor?" #input("\n\nUser: ")
-
-while query != "STOP":
-    stream = chatter.send_prompt(query)
-
-    print("\n\nAssistant: ", end="", flush=True)
-
-    for i in stream:
-        print(i, end="", flush=True)
-
-    query = input("\n\nUser: ")
+chatter.chat()

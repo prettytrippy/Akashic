@@ -3,7 +3,7 @@ import re
 import numpy as np
 import json
 from tqdm import tqdm
-from akashic.utils import count_tokens, embed_text
+from akashic.utils import count_tokens, embed_text, read_file
 
 class AkashicRecord():
     def __init__(self, filename, path, max_tokens):
@@ -36,25 +36,8 @@ class AkashicRecord():
         ranked_files = np.array(self.files)
         return ranked_files[idxs][::-1], sims[idxs][::-1]
     
-    def pdf_to_text(self, pdf_path):
-        text = ''
-        pdf_document = fitz.open(pdf_path)
-        
-        for page_num in range(pdf_document.page_count):
-            page = pdf_document.load_page(page_num)
-            text += page.get_text()
-        pdf_document.close()
-        return text
-    
-    def read_file(self):
-        extension = self.filename.split(".")[-1]
-        if extension == 'pdf':
-            return self.pdf_to_text(self.filename)
-        else:
-            return open(self.filename, 'r', encoding='utf-8', errors='ignore').read()
-        
     def chunk(self):
-        txt = self.read_file()
+        txt = read_file(self.filename)
         pattern = r'\n|\t|\r'
 
         txts = re.split(pattern, txt)

@@ -16,6 +16,9 @@ class AkashicModel():
             n_ctx=context_length, chat_format=format
         )
 
+    def __len__(self):
+        return self.model.n_ctx
+
     def raw(self, text, max_tokens=None):
         return self.model(text, max_tokens=max_tokens, stream=False)
 

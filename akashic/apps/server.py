@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, Response, stream_with_context
 from akashic.model import AkashicModel
-from akashic.agent import AkashicAgent
+from akashic.agents.chatbot import AkashicChatbot
 from dotenv import load_dotenv
 import os
 import fitz
@@ -20,7 +20,7 @@ code_context_length = 512
 
 code_model = AkashicModel(code_model_path, context_length=code_context_length, format=code_model_format)
 model = AkashicModel(model_path, context_length, format=model_format)
-chatter = AkashicAgent(model)
+chatter = AkashicChatbot(model)
 
 app = Flask(__name__)
 
