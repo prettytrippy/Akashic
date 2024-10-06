@@ -1,4 +1,5 @@
-from akashic.agent import AkashicModel, AkashicAgent
+from akashic.agent import AkashicAgent
+from akashic.model import AkashicModel
 from dotenv import load_dotenv
 import os
 
@@ -17,7 +18,7 @@ context_length = 8192
 model = AkashicModel(model_path, context_length=context_length, format=model_format)
 chatter = AkashicAgent(model, context_length=context_length)
 
-query = input("\n\nUser: ")
+query = "What is a tensor?" #input("\n\nUser: ")
 
 while query != "STOP":
     stream = chatter.send_prompt(query)

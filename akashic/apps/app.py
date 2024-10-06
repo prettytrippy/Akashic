@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, redirect, url_for
 from markdown import markdown
 from markupsafe import Markup
 from werkzeug.utils import secure_filename
-from akashic.agent import AkashicModel, AkashicAgent
+from akashic.agent import AkashicAgent
+from akashic.model import AkashicModel
 from akashic.retrieval.retriever import AkashicRetriever
 from akashic.utils import webify_messages
 from dotenv import load_dotenv
