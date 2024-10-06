@@ -7,7 +7,7 @@ load_dotenv()
 path_to_llama_cpp = os.environ['LLAMA_CPP_PATH'] 
 
 class AkashicModel():
-    def __init__(self, model_path, context_length=1024, format="llama_2", seed=2023):
+    def __init__(self, model_path, context_length=1024, format="llama-3", seed=2023):
         self.model = Llama(
             model_path=f"{path_to_llama_cpp}/{model_path}",
             verbose=False,
@@ -15,9 +15,10 @@ class AkashicModel():
             seed=seed, 
             n_ctx=context_length, chat_format=format
         )
+        self.context_length = context_length
 
     def __len__(self):
-        return self.model.n_ctx
+        return self.context_length
 
     def raw(self, text, max_tokens=None):
         return self.model(text, max_tokens=max_tokens, stream=False)
