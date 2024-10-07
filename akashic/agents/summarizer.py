@@ -7,8 +7,9 @@ from tqdm import tqdm
 default_summarizer_message = f"You are a chatbot assistant who summarizes documents."
 
 class AkashicSummarizer(AkashicChatbot):
-    def __init__(self, model):
-        super().__init__(model, system_message=default_summarizer_message)
+    def __init__(self, model, system_message=default_summarizer_message, divider=4):
+        super().__init__(model, system_message=system_message)
+        self.divider = divider
     
     def chunk_text(self, text):
         sections = re.split(r'\. |\n|\r|\t|\! |\? |\: |\;', text)
@@ -18,7 +19,7 @@ class AkashicSummarizer(AkashicChatbot):
         current_string = ""
 
         for section in sections:
-            if count_tokens(current_string) + count_tokens(section) < (self.get_context_length() // 4):
+            if count_tokens(current_string) + count_tokens(section) < (self.get_context_length() // self.divider):
                 current_string += section
             else:
                 combined_strings.append(current_string)
@@ -34,9 +35,10 @@ class AkashicSummarizer(AkashicChatbot):
         Here's the passage:\n\n{user_input}"""
 
     def summarize(self, text):
+        self.messages = []
         results = []
         chunks = self.chunk_text(text)
-        for chunk in tqdm(chunks, desc="Summarizing text..."):
+        for chunk in (chunks):#, desc="Summarizing text..."):
             msg = self.make_prompt(chunk)
             result = self.send_prompt(msg, stream=False)
             result = list(result)[0]
