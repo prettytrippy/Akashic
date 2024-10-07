@@ -17,7 +17,7 @@ collections_directory = os.environ['COLLECTIONS']
 context_length = 8192
 
 model = AkashicModel(model_path, context_length=context_length, format=model_format)
-chatter = AkashicChatbot(model, context_length=context_length)
+chatter = AkashicChatbot(model)
 archivist = AkashicRetriever(collections_directory, context_length//8)
 
 current_collections = []
@@ -89,11 +89,13 @@ def chat():
         query = request.form.get('user_input')
         if query:
             # get any useful context from the document store, then prompt the chatbot
-            # hyde_document = chatter.chat_text(query, context="", n=1)
-            hyde_document = query
+            hyde_document = list(chatter.send_prompt(query, stream=False))[0]
+            chatter.messages = chatter.messages[:-2] # clear last two messages
 
-            context = archivist.rank_files(current_collections, hyde_document, n=3)
-            stream = chatter.send_prompt(query)
+            print("HYDE:", hyde_document)
+            context = archivist.get_context(current_collections, hyde_document, n=3)
+            query = f"{query}\nHere's some context that might help: {context}" if context else query
+            stream = chatter.send_prompt(query, stream=True)
         
         for i in stream:
             print(i, end="", flush=True)

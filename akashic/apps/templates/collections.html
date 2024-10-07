@@ -103,7 +103,7 @@
                 </form>
                 <form method="post" action="/add_file_to_collection" enctype="multipart/form-data">
                     <input type="hidden" name="folder_name" value="{{ folder }}">
-                    <input type="file" name="file" accept=".txt, .pdf, .docx, .xlsx"> <!-- Specify allowed file types -->
+                    <input type="file" name="file" accept=".py, .c, .txt, .pdf, .docx, .xlsx"> <!-- Specify allowed file types -->
                     <button type="submit">Add</button>
                 </form>
                 <form method="post" action="/delete_collection">

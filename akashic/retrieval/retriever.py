@@ -124,3 +124,11 @@ class AkashicRetriever():
         n = min(len(sorted_keys), n)
         best_files = sorted_keys[::-1]
         return best_files[:n]
+    
+    def get_context(self, collections, txt, n=3):
+        files = self.rank_files(collections, txt, n=n)
+        context = ""
+        for filepath in files:
+            with open(filepath, 'r') as file:
+                context = f"{context}\n{file.read()}"
+        return context
