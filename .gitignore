@@ -3,6 +3,7 @@ akashic/.env
 akashic/apps/.env
 __pycache__/**
 akashic/__pycache__/**
+akashic/agents/__pycache__/**
 akashic/retrieval/__pycache__/**
 akashic/apps/__pycache__/**
 akashic.egg-info/**
