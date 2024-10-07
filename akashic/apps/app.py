@@ -94,8 +94,7 @@ def chat():
 
             print("HYDE:", hyde_document)
             context = archivist.get_context(current_collections, hyde_document, n=3)
-            query = f"{query}\nHere's some context that might help: {context}" if context else query
-            stream = chatter.send_prompt(query, stream=True)
+            stream = chatter.send_prompt(query, stream=True, context=context)
         
         for i in stream:
             print(i, end="", flush=True)
