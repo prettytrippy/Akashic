@@ -20,7 +20,7 @@ class AkashicChatbot:
         self.model.context_length = new_length
 
     def get_context_length(self):
-        return len(self.model)
+        return int(len(self.model) * 0.9)
     
     def add_message(self, role, content, prepend=False):
         if prepend:
@@ -29,7 +29,7 @@ class AkashicChatbot:
             self.messages.append({"role": role, "content": content})
     
     def truncate_messages(self):
-        token_limit = len(self.model) - count_tokens(self.system_message)
+        token_limit = self.get_context_length() - count_tokens(self.system_message)
 
         messages_copy = self.messages.copy()
         

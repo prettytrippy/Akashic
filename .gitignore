@@ -8,5 +8,4 @@ akashic/retrieval/__pycache__/**
 akashic/apps/__pycache__/**
 akashic.egg-info/**
 akashic/.DS_Store
-akashic/apps/personal_apps/**
 .DS_Store

@@ -40,7 +40,7 @@ class AkashicSummarizer(AkashicChatbot):
     def summarize(self, text):
         results = []
         chunks = self.chunk_text(text)
-        for chunk in (chunks):#, desc="Summarizing text..."):
+        for chunk in tqdm(chunks, desc="Summarizing text..."):
             msg = self.make_prompt(chunk)
             result = self.send_prompt(msg, stream=False)
             result = list(result)[0]
