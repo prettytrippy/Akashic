@@ -1,4 +1,4 @@
-akashic/apps/Collections/**
+akashic/apps/Web/Collections/**
 akashic/.env
 akashic/apps/.env
 akashic/apps/Web/.env
@@ -7,6 +7,7 @@ akashic/__pycache__/**
 akashic/agents/__pycache__/**
 akashic/retrieval/__pycache__/**
 akashic/apps/__pycache__/**
+akashic/apps/Web/__pycache__/**
 akashic.egg-info/**
 akashic/.DS_Store
 .DS_Store
