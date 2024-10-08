@@ -28,14 +28,16 @@ class AkashicSummarizer(AkashicChatbot):
         combined_strings.append(current_string) 
         return combined_strings
     
-    def make_prompt(self, user_input):
-        return f"""Briefly summarize the following passage. 
-        Focus on important information, as if you're taking notes for an important exam. 
-        Just reply with the summary, no extra text like "Here's a summary of the passage".
-        Here's the passage:\n\n{user_input}"""
+    def set_prompt(self, prompt):
+        self.prompt = prompt
 
-    def summarize(self, text):
+    def make_prompt(self, user_input):
+        return self.prompt + user_input
+
+    def clear_messages(self):
         self.messages = []
+        
+    def summarize(self, text):
         results = []
         chunks = self.chunk_text(text)
         for chunk in (chunks):#, desc="Summarizing text..."):
