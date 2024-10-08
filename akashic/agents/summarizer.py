@@ -33,9 +33,6 @@ class AkashicSummarizer(AkashicChatbot):
 
     def make_prompt(self, user_input):
         return self.prompt + user_input
-
-    def clear_messages(self):
-        self.messages = []
         
     def summarize(self, text):
         results = []

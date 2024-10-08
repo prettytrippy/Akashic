@@ -12,12 +12,16 @@ import os
 load_dotenv()
 
 model_path = os.environ['MODEL_PATH'] 
+helper_model_path = os.environ['HELPER_MODEL_PATH'] 
 model_format = os.environ['MODEL_FORMAT']
+helper_model_format = os.environ['HELPER_MODEL_FORMAT']
 collections_directory = os.environ['COLLECTIONS']
 context_length = 8192
 
 model = AkashicModel(model_path, context_length=context_length, format=model_format)
 chatter = AkashicChatbot(model)
+helper_model = AkashicModel(helper_model_path, context_length=context_length, format=helper_model_format)
+helper_chatter = AkashicChatbot(model)
 archivist = AkashicRetriever(collections_directory, context_length//8)
 
 current_collections = []
@@ -88,12 +92,14 @@ def chat():
     if request.method == 'POST':
         query = request.form.get('user_input')
         if query:
+            context = ""
             # get any useful context from the document store, then prompt the chatbot
-            hyde_document = list(chatter.send_prompt(query, stream=False))[0]
-            chatter.messages = chatter.messages[:-2] # clear last two messages
+            if current_collections != []:
+                hyde_document = list(helper_chatter.send_prompt(query, stream=False))[0]
+                helper_chatter.clear_messages()
 
-            print("HYDE:", hyde_document)
-            context = archivist.get_context(current_collections, hyde_document, n=3)
+                print("HYDE:", hyde_document)
+                context = archivist.get_context(current_collections, hyde_document, n=3)
             stream = chatter.send_prompt(query, stream=True, context=context)
         
         for i in stream:

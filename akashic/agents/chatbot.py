@@ -27,6 +27,9 @@ class AkashicChatbot:
             self.messages = [{"role": role, "content": content}] + self.messages
         else:
             self.messages.append({"role": role, "content": content})
+
+    def clear_messages(self):
+        self.messages = []
     
     def truncate_messages(self):
         token_limit = self.get_context_length() - count_tokens(self.system_message)
@@ -43,9 +46,10 @@ class AkashicChatbot:
     def prepare_prompt(self, user_input, context):
         self.add_message("user", user_input)
         return_messages = self.truncate_messages()
-        return_messages = return_messages[:-1]
-        usr_msg = f"{user_input}\nHere's some additional retrieved context that may help:\n{context}" if context else user_input
-        return_messages.append({"role":"user", "content":f"{usr_msg}"})
+        if context != "":
+            return_messages = return_messages[:-1]
+            usr_msg = f"{user_input}\nHere's some additional retrieved context that may help:\n{context}" if context else user_input
+            return_messages.append({"role":"user", "content":f"{usr_msg}"})
         return return_messages
     
     def send_prompt(self, user_input, stream=True, context=""):
