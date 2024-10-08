@@ -1,6 +1,7 @@
 akashic/apps/Collections/**
 akashic/.env
 akashic/apps/.env
+akashic/apps/Web/.env
 __pycache__/**
 akashic/__pycache__/**
 akashic/agents/__pycache__/**
