@@ -38,9 +38,8 @@ class AkashicRecord():
     
     def chunk(self):
         txt = read_file(self.filename)
-        pattern = r'\n|\t|\r'
+        txts = tokenize(txt)
 
-        txts = re.split(pattern, txt)
         running_list = []
         running_string = ""
         for i in txts:

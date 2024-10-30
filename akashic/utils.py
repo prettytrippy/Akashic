@@ -8,8 +8,11 @@ os.environ['TOKENIZERS_PARALLELISM'] = 'false'
 model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
 encoding = tiktoken.get_encoding("cl100k_base")
 
+def tokenize(txt):
+    return [encoding.decode_single_token_bytes(i).decode("utf-8") for i in encoding.encode(txt)]
+
 def count_tokens(txt):
-    inputs = encoding.encode(txt)
+    inputs = tokenize(txt)
     return len(inputs)
 
 def embed_text(txt):

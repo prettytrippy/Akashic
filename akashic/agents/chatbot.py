@@ -28,8 +28,8 @@ class AkashicChatbot:
         else:
             self.messages.append({"role": role, "content": content})
 
-    def clear_messages(self):
-        self.messages = []
+    def clear_messages(self, n=0):
+        self.messages = self.messages[:-n]
     
     def truncate_messages(self):
         token_limit = self.get_context_length() - count_tokens(self.system_message)
@@ -66,16 +66,3 @@ class AkashicChatbot:
             yield response
 
         self.add_message('assistant', response)
-
-    def chat(self):
-        query = input("\n\nUser: ")
-
-        while query != "STOP":
-            stream = self.send_prompt(query)
-
-            print("\n\nAssistant: ", end="", flush=True)
-
-            for i in stream:
-                print(i, end="", flush=True)
-
-            query = input("\n\nUser: ")

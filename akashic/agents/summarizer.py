@@ -10,6 +10,7 @@ class AkashicSummarizer(AkashicChatbot):
     def __init__(self, model, system_message=default_summarizer_message, divider=4):
         super().__init__(model, system_message=system_message)
         self.divider = divider
+        self.prompt = "Summarize the following text:\n\n"
     
     def chunk_text(self, text):
         sections = re.split(r'\. |\n|\r|\t|\! |\? |\: |\;', text)
@@ -35,15 +36,16 @@ class AkashicSummarizer(AkashicChatbot):
         return self.prompt + user_input
         
     def summarize(self, text):
-        results = []
+        # results = []
         chunks = self.chunk_text(text)
         for chunk in tqdm(chunks, desc="Summarizing text..."):
             msg = self.make_prompt(chunk)
             result = self.send_prompt(msg, stream=False)
             result = list(result)[0]
-            results.append(result)
+            # results.append(result)
+            yield result
             
-        return "\n\n".join(results)
+        # return "\n\n".join(results)
     
     def summarize_file(self, filepath):
         text = read_file(filepath)

@@ -96,7 +96,7 @@ def chat():
             # get any useful context from the document store, then prompt the chatbot
             if current_collections != []:
                 hyde_document = list(helper_chatter.send_prompt(query, stream=False))[0]
-                helper_chatter.clear_messages()
+                helper_chatter.clear_messages(n=3)
 
                 print("HYDE:", hyde_document)
                 context = archivist.get_context(current_collections, hyde_document, n=3)
