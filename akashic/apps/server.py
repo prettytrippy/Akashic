@@ -1,110 +1,71 @@
-from flask import Flask, request, jsonify, Response, stream_with_context
-from akashic.model import AkashicModel
-from akashic.agents.chatbot import AkashicChatbot
+from flask import Flask, request, jsonify
 from dotenv import load_dotenv
 import os
-import fitz
-from akashic.utils import count_tokens
-import json
+import time
 from pprint import pprint
+
+from akashic.model import AkashicModel
+from akashic.utils import count_tokens
 
 load_dotenv()
 
 model_path = os.environ['MODEL_PATH'] 
 model_format = os.environ['MODEL_FORMAT']
-context_length = 8192
+context_length = 9000
 
-code_model_path = os.environ['CODE_MODEL_PATH'] 
-code_model_format = os.environ['CODE_MODEL_FORMAT']
-code_context_length = 512
-
-code_model = AkashicModel(code_model_path, context_length=code_context_length, format=code_model_format)
 model = AkashicModel(model_path, context_length, format=model_format)
-chatter = AkashicChatbot(model)
 
 app = Flask(__name__)
 
-def format_prompt(prompt):
-    prompt = prompt.split('<fim_suffix>')[0]
-    return prompt[12:]
-
-@app.route('/completion', methods=['POST'])
-def completion():
-    data = request.get_json()
-
-    # pprint(data)
-
-    prompt = data['prompt']
-    stream = data.get("stream", False)
-    n_predict = data.get("n_predict", 16)
-
-    prompt = format_prompt(prompt)
-    answers = code_model.complete(prompt, stream=stream, max_tokens=n_predict)
-
-    if stream:
-        def generate():
-            for answer in answers:
-                partial_response = {"content": answer}
-                yield jsonify(partial_response)
-
-        return Response(stream_with_context(generate()), content_type='text/event-stream')
-    else:
-        full_answer = "".join(answers)
-        final_response = {"content": full_answer}
-        return jsonify(final_response)
-    
-def cut_context(txt, length):
-    tokens = count_tokens(txt)
-    proportion = int(len(tokens)/length)
-    txt = txt.split()
-    return " ".join(txt[-len(txt)//(proportion+1):])
-
-def get_context(document, page_num, pages=4):
-    byte_array = bytearray(document)
-    path = "reconstructed_file.pdf"
-    with open(path, "wb") as pdf_file:
-        pdf_file.write(byte_array)
-
-    text = ""
-    pdf_doc = fitz.open(path)
-
-    start, end = page_num - pages, page_num
-    start, end = max(0, start), min(end, pdf_doc.page_count)
-    for i in range(start, end):
-        page = pdf_doc.load_page(i)
-        text += page.get_text()
-    pdf_doc.close()
-    return cut_context(text, chatter.context_length//2)
-
-def process_text(question, context):
-    txt = f"""
-    Please help answer this question about an academic text: {question}.\n
-    Here's some context from the text in question, which may or may not help: {context}.
-    """
-    answers = chatter.send_prompt(txt, stream=True)
-    response = ""
-    for chunk in answers:
-        response += chunk
-        print(chunk, end="", flush=True)
-
-    return f"\t\n\r\n\n{response}"
-
-@app.route('/process', methods=['POST'])
-def process():
-    print("AZFKLJSHFOSLFIHJAPLFKJHSLFKHDSOIRHJNKXMKC ")
-    # 'text', 'page_number', 'pdf_file_data'
+@app.route('/chat/completions', methods=['POST'])
+def chat():
     data = request.json
     
-    query = data.get('text')
-    document = data.get('pdf_file_data')
-    page = int(data.get('page_number'))
+    messages = data.get('messages', [])
+    # temperature = data.get('temperature', 0.2)
+    # top_p = data.get('top_p', 0.95)
 
-    print("DAta:", data, query, document, page)
+    prompt_tokens = sum([count_tokens(v) for message in messages for v in message.values()])
 
-    context = get_context(document, page)
-    output_text = process_text(query, context)
-    return jsonify({'content': output_text})
+    try:
+        # response_string = list(model.chat(messages, stream=False, temperature=temperature, top_p=top_p))[0]
+        response_string = list(model.chat(messages, stream=False))[0]
+        completion_tokens = count_tokens(response_string)
+        total_tokens = prompt_tokens + completion_tokens
+        response_dict = {
+            "id": "ego",
+            "object": "chat.completion",
+            "created": int(time.time()),
+            "model": "custom_server/none_of_your_business",
+            "choices": [
+                {
+                "index": 0,
+                "message": {
+                    "role": "assistant",
+                    "content": response_string
+                },
+                "finish_reason": "stop"
+                }
+            ],
+            "usage": {
+                "prompt_tokens": prompt_tokens,
+                "completion_tokens": completion_tokens,
+                "total_tokens": total_tokens
+            }
+        }
+        print(response_string)
+        return jsonify(response_dict), 200
+    
+    except Exception as e:
+        print("Error:", e)
+        response_dict = {"error":str(e)}
+        return jsonify(response_dict), 405
+
+@app.route('/v1/model/info', methods=['GET'])
+def info():
+    response = "placeholder"
+    return jsonify({'content': response})
 
 if __name__ == '__main__':
-    app.run(port=8765, debug=False)
+    app.run(host='0.0.0.0', port=8765, debug=False)
 

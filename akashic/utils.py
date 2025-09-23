@@ -1,22 +1,22 @@
 import tiktoken
 from sentence_transformers import SentenceTransformer
 import os
-import fitz
+# from model2vec import StaticModel
+import pymupdf4llm
 
 os.environ['TOKENIZERS_PARALLELISM'] = 'false'
-
-model = SentenceTransformer('sentence-transformers/all-mpnet-base-v2')
+# model = StaticModel.from_pretrained("minishlab/potion-base-2M")
 encoding = tiktoken.get_encoding("cl100k_base")
 
 def tokenize(txt):
-    return [encoding.decode_single_token_bytes(i).decode("utf-8") for i in encoding.encode(txt)]
+    return [encoding.decode_single_token_bytes(i) for i in encoding.encode(txt)]
 
 def count_tokens(txt):
     inputs = tokenize(txt)
     return len(inputs)
 
-def embed_text(txt):
-    return model.encode(str(txt))
+# def embed_text(txt):
+#     return model.encode(str(txt))
 
 def webify_messages(messages):
     tuples = []
@@ -26,14 +26,16 @@ def webify_messages(messages):
     return tuples
 
 def pdf_to_text(pdf_path):
-        text = ''
-        pdf_document = fitz.open(pdf_path)
+        # text = ''
+        # pdf_document = fitz.open(pdf_path)
         
-        for page_num in range(pdf_document.page_count):
-            page = pdf_document.load_page(page_num)
-            text += page.get_text()
-        pdf_document.close()
-        return text
+        # for page_num in range(pdf_document.page_count):
+        #     page = pdf_document.load_page(page_num)
+        #     text += page.get_text()
+        # pdf_document.close()
+        # return text
+
+    return pymupdf4llm.to_markdown(pdf_path)
     
 def read_file(filename):
     extension = filename.split(".")[-1]

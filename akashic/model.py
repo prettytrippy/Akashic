@@ -1,6 +1,7 @@
 from llama_cpp import Llama
 import os
 from dotenv import load_dotenv
+from akashic.utils import count_tokens
 
 load_dotenv()
 
@@ -19,12 +20,28 @@ class AkashicModel():
 
     def __len__(self):
         return self.context_length
+    
+    def truncate_messages(self, messages):
+        # Yeah, definitely fix this shit
+        token_limit = int(len(self) * 0.8)
 
+        messages_copy = messages
+        
+        total_tokens = sum(count_tokens(msg['content']) for msg in messages_copy)
+
+        while total_tokens >= token_limit:
+            messages_copy.pop(0)
+            total_tokens = sum(count_tokens(msg['content']) for msg in messages_copy)
+  
+
+        return messages_copy
+    
     def raw(self, text, max_tokens=None):
         return self.model(text, max_tokens=max_tokens, stream=False)
 
-    def chat(self, messages, stream, max_tokens=-1):
-        answer = self.model.create_chat_completion(messages, stream=stream, max_tokens=max_tokens)
+    def chat(self, messages, stream=False, max_tokens=-1, top_p=0.95, temperature=0.2):
+        messages = self.truncate_messages(messages)
+        answer = self.model.create_chat_completion(messages, stream=stream, max_tokens=max_tokens, temperature=temperature, top_p=top_p)
         if stream:
             for i in answer:
                 if 'content' in i['choices'][0]['delta'].keys():
